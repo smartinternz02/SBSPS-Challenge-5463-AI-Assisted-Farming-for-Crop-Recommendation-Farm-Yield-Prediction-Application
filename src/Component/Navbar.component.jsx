@@ -1,11 +1,13 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Link } from 'react-router-dom';
+import logo from '../assets/images/logo.png'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
+    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Crop Recommendation', href: '/recommendation', current: false },
+    { name: 'Profit', href: '/profit', current: false },
     { name: 'Calendar', href: '#', current: false },
 ]
 
@@ -35,29 +37,29 @@ export default function Navbar() {
                                 <div className="flex-shrink-0 flex items-center">
                                     <img
                                         className="block lg:hidden h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                        src={logo}
                                         alt="Workflow"
                                     />
                                     <img
                                         className="hidden lg:block h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                                        src={logo}
                                         alt="Workflow"
                                     />
                                 </div>
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
-                                            <a
+                                            <Link
                                                 key={item.name}
-                                                href={item.href}
+                                                to={item.href}
                                                 className={classNames(
-                                                    item.current ? 'bg-green-300 text-black' : 'text-gray-700 hover:bg-green-200 hover:text-black',
+                                                    item.current ? 'bg-green-200 text-black' : 'text-gray-500 hover:text-black',
                                                     'px-3 py-2 rounded-md text-sm font-medium'
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>
