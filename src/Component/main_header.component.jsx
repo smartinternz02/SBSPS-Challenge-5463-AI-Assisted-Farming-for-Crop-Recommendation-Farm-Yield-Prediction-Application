@@ -7,7 +7,7 @@ class MainHeader extends React.Component {
     render() {
         return (
             <div className="min-w-full w-full h-screen bg-gradient-to-b from-green-100 via-green-100">
-                <Navbar></Navbar>
+                <Navbar name="Dashboard"></Navbar>
                 <div className='relative h-4/5 w-full flex justify-center'>
                     <div className="absolute right-0 top-12 opacity-70 sm:opacity-80"><img className="" src={leaves} /></div>
                     <div className="absolute left-0 top-60 opacity-40 sm:opacity-80"><img className="transform rotate-90" src={leaves2} /></div>

@@ -4,18 +4,23 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png'
 
-const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
-    { name: 'Crop Recommendation', href: '/recommendation', current: false },
-    { name: 'Profit', href: '/profit', current: false },
-    { name: 'Calendar', href: '#', current: false },
-]
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+export default function Navbar(props) {
+
+    const navigation = [
+    { name: 'Dashboard', href: '/', current: false },
+    { name: 'Crop Recommendation', href: '/recommendation', current: false },
+    { name: 'Profit', href: '/profit', current: false },
+    { name: 'Calendar', href: '#', current: false },
+    ]
+    
+    if(props.name)
+        navigation.find(nav => nav.name === props.name).current = true;
+
+
     return (
         <Disclosure as="nav">
             {({ open }) => (
