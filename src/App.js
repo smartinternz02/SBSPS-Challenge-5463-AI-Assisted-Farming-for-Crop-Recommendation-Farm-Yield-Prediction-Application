@@ -6,14 +6,18 @@ import MainContent from './Component/mian_content.component'
 import Footer from "./Component/footer.component";
 import CropRecommendation from "./Component/cropRecommendation.component";
 import Profit from "./Component/profit.component";
+import Information from "./Component/information.component";
+
 function App() {
   return (
-    <Router>
+    <div>
+      <Router>
       <Switch>
         <Route exact path="/">
         <div className="h-full">
           <MainHeader></MainHeader>
           <MainContent></MainContent>
+          <Information></Information>
           <Footer></Footer>
         </div>
         </Route>
@@ -24,7 +28,9 @@ function App() {
             <Profit></Profit>
         </Route>
       </Switch>
+      
     </Router>
+    </div>
   );
 }
 
