@@ -1,9 +1,9 @@
 import React from "react";
-import cropDetails from "../assets/cropDetails";
+import cropDetails from "./cropDetails";
 
 export default function Example(props) {
 
-  const [cropId, setCropId] = React.useState(props.cardId)
+  let cropId = props.cardId
   
   return (
   <div className="container mx-auto">

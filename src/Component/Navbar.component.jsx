@@ -14,7 +14,7 @@ export default function Navbar(props) {
     { name: 'Dashboard', href: '/', current: false },
     { name: 'Crop Recommendation', href: '/recommendation', current: false },
     { name: 'Profit', href: '/profit', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Calendar', href: '/', current: false },
     ]
     
     if(props.name)
@@ -100,7 +100,7 @@ export default function Navbar(props) {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        href="#"
+                                                        href="/"
                                                         className={classNames(active ? 'bg-green-200' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Your Profile
@@ -110,7 +110,7 @@ export default function Navbar(props) {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        href="#"
+                                                        href="/"
                                                         className={classNames(active ? 'bg-green-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Settings
@@ -120,7 +120,7 @@ export default function Navbar(props) {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <a
-                                                        href="#"
+                                                        href="/"
                                                         className={classNames(active ? 'bg-green-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
                                                         Sign out

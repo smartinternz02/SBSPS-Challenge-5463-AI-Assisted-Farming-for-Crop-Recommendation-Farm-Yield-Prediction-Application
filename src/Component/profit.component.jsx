@@ -63,8 +63,8 @@ export default function Example() {
             <div className="min-w-full w-full h-screen bg-gradient-to-b from-green-100 via-green-100">
                 <Navbar name="Profit"></Navbar>
                 <div className='relative h-4/5 w-full flex justify-center'>
-                    <div className="absolute right-0 top-12 opacity-70 sm:opacity-80"><img className="" src={leaves} /></div>
-                    <div className="absolute left-0 top-60 opacity-40 sm:opacity-80"><img className="transform rotate-90" src={leaves2} /></div>
+                    <div className="absolute right-0 top-12 opacity-70 sm:opacity-80"><img className="" src={leaves} alt="leaves1" /></div>
+                    <div className="absolute left-0 top-60 opacity-40 sm:opacity-80"><img className="transform rotate-90" src={leaves2} alt="leaves2" /></div>
                     <div className="w-3/5 flex flex-col my-auto">
                         <div className="mx-auto">
                 <div className="md:grid md:gap-6">
