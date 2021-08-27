@@ -4,13 +4,20 @@ import cropDetails from "./cropDetails";
 export default function Example(props) {
 
   let cropId = props.cardId
-  
+
+  function importAll(r) {
+    let images = {};
+    r.keys().forEach((item, index) => { images[item.replace('./', '')] = r(item); });
+    return images
+  }
+  const images = importAll(require.context('../assets/images', false, /\.(png|jpe?g|svg)$/));
+
   return (
   <div className="container mx-auto">
       <div className="w-full">
         <div className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
         <div className="relative">
-          <img className="mx-auto w-1/2" src={require(`../assets/images/${cropDetails[cropId]['image']}`).default} alt="" />
+          <img className="mx-auto w-1/2" src={images[cropDetails[cropId]['image']].default} alt="" />
           <h1 className="pl-4 mt-2 m b-2 text-lg font-bold">{cropDetails[cropId]['name']}</h1>
         </div>
         <div className="p-4">
