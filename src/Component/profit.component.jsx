@@ -6,17 +6,56 @@ import leaves2 from "../assets/images/plant2.png"
 export default function Example() {
 
     const [val, setVal] = React.useState({ "state": null, "crop": null, "sp": null, "cc2": null, "cp2": null })
+    const [errorMessage, setErrorMessage] = React.useState({ "state": false, "crop": false, "sp": false, "cc2": false, "cp2": false })
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let postData = {
-            "input_data": [{
-                "fields": ["State", "Crop", "Support price", "CC2", "CP2"],
-                "values": [[]]
-            }]
+        
+        let isError = false;
+    
+        for (const [key, value] of Object.entries(val)) {
+            if(value === null || value === ''){
+                isError = true
+                setErrorMessage((errorMessage) => ({...errorMessage,[key]: true}))
+                if(key === "state" && document.getElementById("state") !== null)
+                    document.getElementById("state").classList.add('border-red-500')
+                else if(key === "crop" && document.getElementById("crop") !== null)
+                    document.getElementById("crop").classList.add('border-red-500')
+                else if(key === "sp" && document.getElementById("Support price") !== null)
+                    document.getElementById("Support price").classList.add('border-red-500')
+                else if(key === "cc2" && document.getElementById("cc2") !== null)
+                    document.getElementById("cc2").classList.add('border-red-500')
+                else if(key === "cp2" && document.getElementById("cp2") !== null)
+                    document.getElementById("cp2").classList.add('border-red-500')   
+            }
         }
-        Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
-        console.log(JSON.stringify(postData));
+        if(!isError){
+            let postData = {
+                "input_data": [{
+                    "fields": ["State", "Crop", "Support price", "CC2", "CP2"],
+                    "values": [[]]
+                }]
+            }
+            Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
+            console.log(JSON.stringify(postData));
+        }
+    }
+
+    const changeHandler = (name,value) => {
+        setVal({...val,[name]:value})
+        if(value !== null && value !== ''){
+            setErrorMessage((errorMessage) => ({...errorMessage,[name]: false}))
+            if(name === "state" && document.getElementById("state") !== null)
+                document.getElementById("state").classList.remove('border-red-500')
+            else if(name === "crop" && document.getElementById("crop") !== null)
+                document.getElementById("crop").classList.remove('border-red-500')
+            else if(name === "sp" && document.getElementById("Support price") !== null)
+                document.getElementById("Support price").classList.remove('border-red-500')
+            else if(name === "cc2" && document.getElementById("cc2") !== null)
+                document.getElementById("cc2").classList.remove('border-red-500')
+            else if(name === "cp2" && document.getElementById("cp2") !== null)
+                document.getElementById("cp2").classList.remove('border-red-500')   
+        }
     }
 
     return (
@@ -42,8 +81,8 @@ export default function Example() {
                                                 id="state"
                                                 name="state"
                                                 autoComplete="state"
-                                                className="mt-2 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                onChange={(e) => setVal({ ...val, state: e.target.value })}
+                                                className="mt-2 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                onChange={(e) => changeHandler( "state", e.target.value )}
                                             >
                                                 <option disabled selected> Select A State </option>
                                                 <option value="0">Uttar Pradesh</option>
@@ -60,6 +99,7 @@ export default function Example() {
                                                 <option value="11">Orissa</option>
                                                 <option value="12">West Bengal</option>
                                             </select>
+                                            {errorMessage.state?<small className="text-red-500">Please Select A State</small>:''}
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="crop" className="block text-sm font-medium text-gray-700">
@@ -69,8 +109,8 @@ export default function Example() {
                                                 id="crop"
                                                 name="crop"
                                                 autoComplete="crop"
-                                                className="mt-2 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                                onChange={(e) => setVal({ ...val, crop: e.target.value })}
+                                                className="mt-2 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                                                onChange={(e) => changeHandler( "crop", e.target.value )}
                                             >
                                                 <option disabled selected> Select A Crop </option>
                                                 <option value="0">Arhar</option>
@@ -84,6 +124,7 @@ export default function Example() {
                                                 <option value="8">Sugarcane</option>
                                                 <option value="9">Wheat</option>
                                             </select>
+                                            {errorMessage.crop?<small className="text-red-500">Please Select A Crop</small>:''}
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="Support price" className="block text-sm font-medium text-gray-700">
@@ -95,9 +136,10 @@ export default function Example() {
                                                 name="Support price"
                                                 id="Support price"
                                                 autoComplete="Support price"
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                onChange={(e) => setVal({ ...val, sp: e.target.value })}
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                onChange={(e) => changeHandler( "sp", e.target.value )}
                                             />
+                                            {errorMessage.sp?<small className="text-red-500">Please Enter Support Price</small>:''}
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="cc2" className="block text-sm font-medium text-gray-700">
@@ -109,9 +151,10 @@ export default function Example() {
                                                 name="cc2"
                                                 id="cc2"
                                                 autoComplete="cc2"
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                onChange={(e) => setVal({ ...val, cc2: e.target.value })}
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                onChange={(e) => changeHandler( "cc2", e.target.value )}
                                             />
+                                            {errorMessage.cc2?<small className="text-red-500">Please Enter Cost of Cultivation</small>:''}
                                         </div>
                                         <div className="col-span-12">
                                             <label htmlFor="cp2" className="block text-sm font-medium text-gray-700">
@@ -123,18 +166,19 @@ export default function Example() {
                                                 name="cp2"
                                                 id="cp2"
                                                 autoComplete="cp2"
-                                                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                onChange={(e) => setVal({ ...val, cp2: e.target.value })}
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                onChange={(e) => changeHandler( "cp2", e.target.value )}
                                             />
+                                            {errorMessage.cp2?<small className="text-red-500">Please Enter Cost of Production</small>:''}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                     <button
                                         type="submit"
-                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                     >
-                                        Save
+                                        Submit
                                     </button>
                                 </div>
                             </div>
