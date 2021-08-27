@@ -7,29 +7,34 @@ import Footer from "./Component/footer.component";
 import CropRecommendation from "./Component/cropRecommendation.component";
 import Profit from "./Component/profit.component";
 import Card from "./Component/cropCard.component";
+import Information from "./Component/information.component";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <div className="h-full">
-            <MainHeader></MainHeader>
-            <MainContent></MainContent>
-            <Footer></Footer>
-          </div>
-        </Route>
-        <Route exact path="/recommendation">
-          <CropRecommendation></CropRecommendation>
-        </Route>
-        <Route exact path="/profit">
-          <Profit></Profit>
-        </Route>
-        <Route exact path="/card">
-          <Card></Card>
-        </Route>
-      </Switch>
-    </Router>
+    <div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <div className="h-full">
+              <MainHeader></MainHeader>
+              <MainContent></MainContent>
+              <Information></Information>
+              <Footer></Footer>
+            </div>
+          </Route>
+          <Route exact path="/recommendation">
+            <CropRecommendation></CropRecommendation>
+          </Route>
+          <Route exact path="/profit">
+            <Profit></Profit>
+          </Route>
+          <Route exact path="/card">
+            <Card></Card>
+          </Route>
+        </Switch>
+
+      </Router>
+    </div>
   );
 }
 
