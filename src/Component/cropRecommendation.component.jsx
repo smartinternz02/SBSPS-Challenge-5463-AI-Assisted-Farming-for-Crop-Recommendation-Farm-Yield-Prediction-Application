@@ -7,8 +7,52 @@ import axios from "axios";
 
 export default function Example() {
 
+    const [token, setToken] = React.useState('')
+    const [postData, setPostData] = React.useState('')
     const [val, setVal] = React.useState({ "N": null, "P": null, "K": null, "temperature": null, "humidity": null, "ph": null, "rainfall": null })
     const [errorMessage, setErrorMessage] = React.useState({ "N": false, "P": false, "K": false, "temperature": false, "humidity": false, "ph": false, "rainfall": false })
+    const [returnData, setReturnData] = React.useState('')
+
+    async function getToken() {
+        try {
+            const { data } = await axios.post('https://eba8b471.eu-gb.apigw.appdomain.cloud/token/?grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=pPpcfgq3UjLQ7uTNlBeJxAwAVcLeHbsiQlNReLTPLqeQ', null, null);
+                setToken(data.access_token) ;
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+     async function recommendationApi() {
+        var configuration = {
+            headers: {
+                Authorization: "Bearer " + token,
+                'X-IBM-Client-Id': '47ba060c-9566-4487-adbe-4e1111672e5e',
+            },
+        };
+        try {
+            const { data } = await axios.post('https://dd3c8df9.us-south.apigw.appdomain.cloud/farm?version=2021-08-06', postData, configuration);
+                setReturnData(data['predictions'][0]['values'][0][0]) ;
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    React.useEffect(()=>{
+        if(returnData!=='')
+            openModal('modal')
+    },[returnData])
+
+    React.useEffect(()=>{
+        if(postData!==''){
+            getToken()
+        }
+    },[postData])
+
+    React.useEffect(()=>{
+        if(token!==''){
+            recommendationApi()
+        }
+    },[token])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -36,33 +80,14 @@ export default function Example() {
             }
         }
         if(!isError){
-            // openModal('modal')
-            let postData = {
+            let pd = {
                 "input_data": [{
                     "fields": ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"],
                     "values": [[]]
                 }]
             }
-            Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
-            console.log(JSON.stringify(postData));
-
-            var config = {
-            method: 'post',
-            url: 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/cbe03b39-0e93-499d-b9f4-21faa0102481/predictions?version=2021-08-08',
-            headers: { 
-                'Authorization': 'Bearer eyJraWQiOiIyMDIxMDgxOTA4MTciLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC01NTAwMDZFNEZDIiwiaWQiOiJJQk1pZC01NTAwMDZFNEZDIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYTU0NDE4NTMtYjE2Ny00ZWI3LWFkMjgtYmM4YWM3ZmI2YWZmIiwiaWRlbnRpZmllciI6IjU1MDAwNkU0RkMiLCJnaXZlbl9uYW1lIjoiS2FybWFiaXIiLCJmYW1pbHlfbmFtZSI6IkNoYWtyYWJvcnR5IiwibmFtZSI6Ikthcm1hYmlyIENoYWtyYWJvcnR5IiwiZW1haWwiOiJrYXJtYWJpci5jaGFrcmFib3J0eTIwMTlAdml0c3R1ZGVudC5hYy5pbiIsInN1YiI6Imthcm1hYmlyLmNoYWtyYWJvcnR5MjAxOUB2aXRzdHVkZW50LmFjLmluIiwiYXV0aG4iOnsic3ViIjoia2FybWFiaXIuY2hha3JhYm9ydHkyMDE5QHZpdHN0dWRlbnQuYWMuaW4iLCJpYW1faWQiOiJJQk1pZC01NTAwMDZFNEZDIiwibmFtZSI6Ikthcm1hYmlyIENoYWtyYWJvcnR5IiwiZ2l2ZW5fbmFtZSI6Ikthcm1hYmlyIiwiZmFtaWx5X25hbWUiOiJDaGFrcmFib3J0eSIsImVtYWlsIjoia2FybWFiaXIuY2hha3JhYm9ydHkyMDE5QHZpdHN0dWRlbnQuYWMuaW4ifSwiYWNjb3VudCI6eyJib3VuZGFyeSI6Imdsb2JhbCIsInZhbGlkIjp0cnVlLCJic3MiOiI0ZTUyODhmZTFlMzA0NWZkODY4YTIxNGM5OWJhODhjNyIsImZyb3plbiI6dHJ1ZX0sImlhdCI6MTYzMDI1OTExNSwiZXhwIjoxNjMwMjYyNzE1LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.S8Oa1KkAvAdW5DZlanSfP1z-gKY28LmSZMmWQhOwy0q6MHkBPLtpTvr4eM7KLlOSRIhQ3waYtqZ8CMeRjyMtYrZTO8b03dPWPJDOp3qlpB7s1djG-m0jb5J752xgIMJ6CLLhLojLruw7UipV97IFbGFqif2JorS1HdFcvJbbGoXmWLGyLu1Jdib6Bc6XUyqSQH5lOhqdFrWo3M_QCvso39nO4AD0cMcGy6lBsLPpkKr3HSyfoHJW3J-CbS8lXihfFbMCBI9ST9JkRZSduPRX875GK5bPEgBcyV0rOD98qCIIKLlDrJPydkd7NtS6Hz7gJFWArNgS1rsT7WVYVBpJEw', 
-                'Content-Type': 'application/json', 
-            },
-            data : postData
-            };
-
-            axios(config)
-            .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-            console.log(error);
-            });
+            Object.values(val).map(v => pd.input_data[0].values[0].push(parseFloat(v)))
+            setPostData(pd)
         }
     }
 
@@ -119,7 +144,7 @@ export default function Example() {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("modal")}></img>
                             </div>
                             <div className="overflow-y-auto">
-                                <Card cardId={6}/>
+                                <Card cardId={returnData!==''?parseInt(returnData):0}/>
                             </div>
                         </div>
                     </div>

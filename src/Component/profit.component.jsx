@@ -2,32 +2,61 @@ import React from "react";
 import Navbar from './Navbar.component';
 import leaves from "../assets/images/plant.png"
 import leaves2 from "../assets/images/plant2.png"
+import { Link } from 'react-router-dom';
 import axios from "axios";
 
 export default function Example() {
 
-    // const API_KEY = "pPpcfgq3UjLQ7uTNlBeJxAwAVcLeHbsiQlNReLTPLqeQ"
-
-    // function getToken(errorCallback, loadCallback) {
-    //         const req = new XMLHttpRequest();
-    //         req.addEventListener("load", loadCallback);
-    //         req.addEventListener("error", errorCallback);
-    //         req.open("POST", "https://iam.cloud.ibm.com/identity/token%22");
-    //         req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //         req.setRequestHeader("Accept", "application/json");
-    //         req.send("grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + API_KEY);
-    //     }
-
-    // React.useEffect(()=>{
-    //     let resp = getToken()
-    // },[])
-
+    const [token, setToken] = React.useState('')
+    const [postData, setPostData] = React.useState('')
     const [val, setVal] = React.useState({ "state": null, "crop": null, "sp": null, "cc2": null, "cp2": null })
     const [errorMessage, setErrorMessage] = React.useState({ "state": false, "crop": false, "sp": false, "cc2": false, "cp2": false })
+    const [returnData, setReturnData] = React.useState('')
+
+    async function getToken() {
+        try {
+            const { data } = await axios.post('https://eba8b471.eu-gb.apigw.appdomain.cloud/token/?grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=YAUKpiPPjvKaqEIxVjsYxLA95wvmD4jj1pNu7fFK7h4Q', null, null);
+                setToken(data.access_token) ;
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    async function profitApi() {
+        var configuration = {
+            headers: {
+                Authorization: "Bearer " + token,
+                'X-IBM-Client-Id': 'd6e01114-4e36-43cf-806d-c6c22b1f1773',
+            },
+        };
+        try {
+            const { data } = await axios.post('https://eba8b471.eu-gb.apigw.appdomain.cloud/farm?version=2021-08-06', postData, configuration);
+                setReturnData(data['predictions'][0]['values'][0][0]) ;
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
+
+    React.useEffect(()=>{
+        if(returnData!=='')
+            openModal('profitmodal')
+    },[returnData])
+
+    React.useEffect(()=>{
+        if(postData!==''){
+            getToken()
+        }
+    },[postData])
+
+    React.useEffect(()=>{
+        if(token!==''){
+            profitApi()
+        }
+    },[token])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         let isError = false;
     
         for (const [key, value] of Object.entries(val)) {
@@ -48,17 +77,14 @@ export default function Example() {
         }
         if(!isError){
 
-            let postData = {
+            let pd = {
                 "input_data": [{
                     "fields": ["State", "Crop", "Support price", "CC2", "CP2"],
                     "values": [[]]
                 }]
-            }
-            Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
-            console.log(JSON.stringify(postData));
-            
-
-            openModal('profitmodal')
+            }   
+            Object.values(val).map(v => pd.input_data[0].values[0].push(parseFloat(v)))
+            setPostData(pd)
         }
     }
 
@@ -110,14 +136,18 @@ export default function Example() {
                                 <h1 className="font-semibold text-base">Profit/Loss</h1>
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("profitmodal")}></img>
                             </div>
+                            {returnData!='' && returnData===1?
                            <div className="overflow-y-auto mt-4 mb-8">
                                 <h1 className="text-2xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center">CONGRATULATIONS!<br/></h1>
                                 <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black font-semibold">As per our Machine Learning Model, the Crop Data you entered can earn you a </span>Profit!</h1>
                             </div>
-                            {/* <div className="overflow-y-auto mt-4 mb-8">
+                            :
+                            <div className="overflow-y-auto mt-4 mb-8">
                                 <h1 className="text-2xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center">SORRY!<br/></h1>
-                                <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black">Your Crop will lead you to a </span>Loss.</h1>
-                            </div> */}
+                                <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black font-semibold">As per our Machine Learning Model, the Crop Data you entered can lead you to a </span>Loss.</h1><br/>
+                                <h2 className="font-medium text-lg text-center"><Link to='/recommendation' className="text-blue-500">Click Here</Link> to get a crop recommendation for your farm.</h2>
+                            </div>
+                            }
                         </div>
                     </div>
                 </div>
