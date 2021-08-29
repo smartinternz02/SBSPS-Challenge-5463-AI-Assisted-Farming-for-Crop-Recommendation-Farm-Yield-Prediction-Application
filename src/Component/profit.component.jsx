@@ -2,8 +2,25 @@ import React from "react";
 import Navbar from './Navbar.component';
 import leaves from "../assets/images/plant.png"
 import leaves2 from "../assets/images/plant2.png"
+import axios from "axios";
 
 export default function Example() {
+
+    // const API_KEY = "pPpcfgq3UjLQ7uTNlBeJxAwAVcLeHbsiQlNReLTPLqeQ"
+
+    // function getToken(errorCallback, loadCallback) {
+    //         const req = new XMLHttpRequest();
+    //         req.addEventListener("load", loadCallback);
+    //         req.addEventListener("error", errorCallback);
+    //         req.open("POST", "https://iam.cloud.ibm.com/identity/token%22");
+    //         req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    //         req.setRequestHeader("Accept", "application/json");
+    //         req.send("grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + API_KEY);
+    //     }
+
+    // React.useEffect(()=>{
+    //     let resp = getToken()
+    // },[])
 
     const [val, setVal] = React.useState({ "state": null, "crop": null, "sp": null, "cc2": null, "cp2": null })
     const [errorMessage, setErrorMessage] = React.useState({ "state": false, "crop": false, "sp": false, "cc2": false, "cp2": false })
@@ -30,6 +47,7 @@ export default function Example() {
             }
         }
         if(!isError){
+
             let postData = {
                 "input_data": [{
                     "fields": ["State", "Crop", "Support price", "CC2", "CP2"],
@@ -38,7 +56,31 @@ export default function Example() {
             }
             Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
             console.log(JSON.stringify(postData));
+            
+
+            openModal('profitmodal')
         }
+    }
+
+    function openModal(key) {
+        document.getElementById(key).showModal(); 
+        document.body.setAttribute('style', 'overflow: hidden;'); 
+        document.getElementById(key).children[0].scrollTop = 0; 
+        document.getElementById(key).children[0].classList.remove('opacity-0'); 
+        document.getElementById(key).children[0].classList.add('opacity-100');
+        document.addEventListener('click', function (e) {
+            if(e.target.className && e.target.className.includes("fixed"))
+                modalClose('profitmodal')
+        }, false);
+    }
+
+    function modalClose(key) {
+        document.getElementById(key).children[0].classList.remove('opacity-100');
+        document.getElementById(key).children[0].classList.add('opacity-0');
+        setTimeout(function () {
+            document.getElementById(key).close();
+            document.body.removeAttribute('style');
+        }, 100);
     }
 
     const changeHandler = (name,value) => {
@@ -60,19 +102,40 @@ export default function Example() {
 
     return (
         <div className="flex">
+             <dialog id="profitmodal" className="bg-transparent z-0 relative w-screen h-screen">
+                <div className="p-6 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0">
+                    <div className="bg-white rounded-lg md:w-2/3 lg:w-1/3 relative">
+                        <div>
+                            <div className="px-7 pt-6 pb-2 grid grid-cols-2">
+                                <h1 className="font-semibold text-base">Profit/Loss</h1>
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("profitmodal")}></img>
+                            </div>
+                           <div className="overflow-y-auto mt-4 mb-8">
+                                <h1 className="text-2xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center">CONGRATULATIONS!<br/></h1>
+                                <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black font-semibold">As per our Machine Learning Model, the Crop Data you entered can earn you a </span>Profit!</h1>
+                            </div>
+                            {/* <div className="overflow-y-auto mt-4 mb-8">
+                                <h1 className="text-2xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center">SORRY!<br/></h1>
+                                <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black">Your Crop will lead you to a </span>Loss.</h1>
+                            </div> */}
+                        </div>
+                    </div>
+                </div>
+            </dialog>
             <div className="min-w-full w-full h-screen bg-gradient-to-b from-green-100 via-green-100">
-                <Navbar name="Profit"></Navbar>
+            <Navbar name="Yield Profit"></Navbar>
                 <div className='relative h-4/5 w-full flex justify-center'>
-                    <div className="absolute right-0 top-12 opacity-70 sm:opacity-80"><img className="" src={leaves} alt="leaves1" /></div>
-                    <div className="absolute left-0 top-60 opacity-40 sm:opacity-80"><img className="transform rotate-90" src={leaves2} alt="leaves2" /></div>
-                    <div className="w-3/5 flex flex-col my-auto">
+                    <div className="absolute right-0 top-12 opacity-0 lg:opacity-80"><img className="" src={leaves} alt="leaves1" /></div>
+                    <div className="absolute left-0 top-60 opacity-0 lg:opacity-80"><img className="transform rotate-90" src={leaves2} alt="leaves2" /></div>
+                    <div className="w-4/5 lg:w-1/3 my-auto">
                         <div className="mx-auto">
                 <div className="md:grid md:gap-6">
-                    <div className="my-5 ml-20 shadow-xl">
+                    <h1 className="text-3xl sm:text-4xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center lg:ml-12 mt-8">PROFIT/LOSS</h1>
+                    <div className="my-5 mb-16 lg:ml-12 shadow-xl">
                         <form onSubmit={handleSubmit}>
                             <div className="shadow overflow-hidden sm:rounded-md">
                                 <div className="px-4 py-5 bg-white sm:p-6">
-                                    <div className="grid grid-cols-6 gap-10">
+                                    <div className="grid gap-y-10 md:gap-10">
                                         <div className="col-span-12">
                                             <label htmlFor="state" className="block text-sm font-medium text-gray-700">
                                                 State
@@ -176,7 +239,7 @@ export default function Example() {
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                     <button
                                         type="submit"
-                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                        className="inline-flex justify-center w-full mb-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                     >
                                         Submit
                                     </button>

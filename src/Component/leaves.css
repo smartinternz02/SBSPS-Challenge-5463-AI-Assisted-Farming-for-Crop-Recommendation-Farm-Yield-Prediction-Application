@@ -1,0 +1,31 @@
+.leaf1{
+    animation: leaf1 5.5s infinite ease-in-out;
+}
+
+@keyframes leaf1{
+    0%{
+        transform: skew(0deg);
+    }
+    50%{
+        transform: skew(12deg,-12deg);
+    }
+    100%{
+        transform: skew(0deg);
+    }
+}
+
+.leaf2{
+    animation: leaf2 5.5s infinite ease-in-out;
+}
+
+@keyframes leaf2{
+    0%{
+        transform: skew(0deg) rotate(90deg);
+    }
+    50%{
+        transform: skew(12deg,-10deg) rotate(90deg);
+    }
+    100%{
+        transform: skew(0deg) rotate(90deg);
+    }
+}

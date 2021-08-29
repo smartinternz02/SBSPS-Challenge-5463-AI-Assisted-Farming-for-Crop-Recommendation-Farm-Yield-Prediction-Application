@@ -3,6 +3,7 @@ import Navbar from './Navbar.component';
 import leaves from "../assets/images/plant.png"
 import leaves2 from "../assets/images/plant2.png"
 import Card from "./cropCard.component";
+import axios from "axios";
 
 export default function Example() {
 
@@ -35,7 +36,7 @@ export default function Example() {
             }
         }
         if(!isError){
-            openModal('modal')
+            // openModal('modal')
             let postData = {
                 "input_data": [{
                     "fields": ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"],
@@ -44,6 +45,24 @@ export default function Example() {
             }
             Object.values(val).map(v => postData.input_data[0].values[0].push(parseFloat(v)))
             console.log(JSON.stringify(postData));
+
+            var config = {
+            method: 'post',
+            url: 'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/cbe03b39-0e93-499d-b9f4-21faa0102481/predictions?version=2021-08-08',
+            headers: { 
+                'Authorization': 'Bearer eyJraWQiOiIyMDIxMDgxOTA4MTciLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJJQk1pZC01NTAwMDZFNEZDIiwiaWQiOiJJQk1pZC01NTAwMDZFNEZDIiwicmVhbG1pZCI6IklCTWlkIiwianRpIjoiYTU0NDE4NTMtYjE2Ny00ZWI3LWFkMjgtYmM4YWM3ZmI2YWZmIiwiaWRlbnRpZmllciI6IjU1MDAwNkU0RkMiLCJnaXZlbl9uYW1lIjoiS2FybWFiaXIiLCJmYW1pbHlfbmFtZSI6IkNoYWtyYWJvcnR5IiwibmFtZSI6Ikthcm1hYmlyIENoYWtyYWJvcnR5IiwiZW1haWwiOiJrYXJtYWJpci5jaGFrcmFib3J0eTIwMTlAdml0c3R1ZGVudC5hYy5pbiIsInN1YiI6Imthcm1hYmlyLmNoYWtyYWJvcnR5MjAxOUB2aXRzdHVkZW50LmFjLmluIiwiYXV0aG4iOnsic3ViIjoia2FybWFiaXIuY2hha3JhYm9ydHkyMDE5QHZpdHN0dWRlbnQuYWMuaW4iLCJpYW1faWQiOiJJQk1pZC01NTAwMDZFNEZDIiwibmFtZSI6Ikthcm1hYmlyIENoYWtyYWJvcnR5IiwiZ2l2ZW5fbmFtZSI6Ikthcm1hYmlyIiwiZmFtaWx5X25hbWUiOiJDaGFrcmFib3J0eSIsImVtYWlsIjoia2FybWFiaXIuY2hha3JhYm9ydHkyMDE5QHZpdHN0dWRlbnQuYWMuaW4ifSwiYWNjb3VudCI6eyJib3VuZGFyeSI6Imdsb2JhbCIsInZhbGlkIjp0cnVlLCJic3MiOiI0ZTUyODhmZTFlMzA0NWZkODY4YTIxNGM5OWJhODhjNyIsImZyb3plbiI6dHJ1ZX0sImlhdCI6MTYzMDI1OTExNSwiZXhwIjoxNjMwMjYyNzE1LCJpc3MiOiJodHRwczovL2lhbS5jbG91ZC5pYm0uY29tL2lkZW50aXR5IiwiZ3JhbnRfdHlwZSI6InVybjppYm06cGFyYW1zOm9hdXRoOmdyYW50LXR5cGU6YXBpa2V5Iiwic2NvcGUiOiJpYm0gb3BlbmlkIiwiY2xpZW50X2lkIjoiZGVmYXVsdCIsImFjciI6MSwiYW1yIjpbInB3ZCJdfQ.S8Oa1KkAvAdW5DZlanSfP1z-gKY28LmSZMmWQhOwy0q6MHkBPLtpTvr4eM7KLlOSRIhQ3waYtqZ8CMeRjyMtYrZTO8b03dPWPJDOp3qlpB7s1djG-m0jb5J752xgIMJ6CLLhLojLruw7UipV97IFbGFqif2JorS1HdFcvJbbGoXmWLGyLu1Jdib6Bc6XUyqSQH5lOhqdFrWo3M_QCvso39nO4AD0cMcGy6lBsLPpkKr3HSyfoHJW3J-CbS8lXihfFbMCBI9ST9JkRZSduPRX875GK5bPEgBcyV0rOD98qCIIKLlDrJPydkd7NtS6Hz7gJFWArNgS1rsT7WVYVBpJEw', 
+                'Content-Type': 'application/json', 
+            },
+            data : postData
+            };
+
+            axios(config)
+            .then(function (response) {
+            console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
         }
     }
 
@@ -54,7 +73,7 @@ export default function Example() {
         document.getElementById(key).children[0].classList.remove('opacity-0'); 
         document.getElementById(key).children[0].classList.add('opacity-100');
         document.addEventListener('click', function (e) {
-            if(e.target.className.includes("fixed"))
+            if(e.target.className && e.target.className.includes("fixed"))
                 modalClose('modal')
         }, false);
     }
@@ -93,14 +112,14 @@ export default function Example() {
         <div className="flex">
             <dialog id="modal" className="bg-transparent z-0 relative w-screen h-screen">
                 <div className="p-6 flex justify-center items-center fixed left-0 top-0 w-full h-full bg-gray-900 bg-opacity-50 z-50 transition-opacity duration-300 opacity-0">
-                    <div className="bg-white rounded-lg w-1/3 relative">
+                    <div className="bg-white rounded-lg md:w-2/3 lg:w-1/3 relative">
                         <div>
                             <div className="px-7 pt-6 pb-2 grid grid-cols-2">
                                 <h1 className="font-semibold text-base">Recommended Crop</h1>
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("modal")}></img>
                             </div>
                             <div className="overflow-y-auto">
-                                <Card cardId={10}/>
+                                <Card cardId={6}/>
                             </div>
                         </div>
                     </div>
@@ -110,17 +129,18 @@ export default function Example() {
             <div className="min-w-full w-full h-screen bg-gradient-to-b from-green-100 via-green-100">
                 <Navbar name="Crop Recommendation"></Navbar>
                 <div className='relative h-4/5 w-full flex justify-center'>
-                    <div className="absolute right-0 top-12 opacity-70 sm:opacity-80"><img className="" src={leaves} alt="leaves1" /></div>
-                    <div className="absolute left-0 top-60 opacity-40 sm:opacity-80"><img className="transform rotate-90" src={leaves2} alt="leaves2" /></div>
-                    <div className="w-3/5 flex flex-col my-auto">
+                    <div className="absolute right-0 top-12 opacity-0 lg:opacity-80"><img className="" src={leaves} alt="leaves1" /></div>
+                    <div className="absolute left-0 top-60 opacity-0 lg:opacity-80"><img className="transform rotate-90" src={leaves2} alt="leaves2" /></div>
+                    <div className="w-4/5 lg:w-1/3 my-auto">
                          <div className="mx-auto">
                 <div className="md:grid md:gap-6">
-                    <div className="my-5 ml-20 shadow-xl">
+                    <h1 className="text-3xl sm:text-4xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center lg:ml-12 mt-8">CROP RECOMMENDATION</h1>
+                    <div className="my-5 mb-16 lg:ml-12 shadow-xl">
                         <form onSubmit={handleSubmit}>
                             <div className="shadow overflow-hidden sm:rounded-md">
                                 <div className="px-4 py-5 bg-white sm:p-6">
-                                    <div className="grid grid-cols-6 gap-10">
-                                        <div className="col-span-12">
+                                    <div className="grid gap-y-10 md:gap-10">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Nitrogen" className="block text-sm font-medium text-gray-700">
                                                 Nitrogen
                                             </label>
@@ -130,12 +150,12 @@ export default function Example() {
                                                 name="Nitrogen"
                                                 id="Nitrogen"
                                                 autoComplete="Nitrogen"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("N", e.target.value )}
                                             />
                                             {errorMessage.N?<small className="text-red-500">Please Enter Nitrogen</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Phosphorus" className="block text-sm font-medium text-gray-700">
                                                 Phosphorus
                                             </label>
@@ -145,12 +165,12 @@ export default function Example() {
                                                 name="Phosphorus"
                                                 id="Phosphorus"
                                                 autoComplete="Phosphorus"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("P", e.target.value )}
                                             />
                                             {errorMessage.P?<small className="text-red-500">Please Enter Phosphorus</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Potassium" className="block text-sm font-medium text-gray-700">
                                                 Potassium
                                             </label>
@@ -160,12 +180,12 @@ export default function Example() {
                                                 name="Potassium"
                                                 id="Potassium"
                                                 autoComplete="Potassium"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("K", e.target.value )}
                                             />
                                             {errorMessage.K?<small className="text-red-500">Please Enter Potassium</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Temperature" className="block text-sm font-medium text-gray-700">
                                                 Temperature
                                             </label>
@@ -175,12 +195,12 @@ export default function Example() {
                                                 name="Temperature"
                                                 id="Temperature"
                                                 autoComplete="Temperature"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("temperature", e.target.value )}
                                             />
                                             {errorMessage.temperature?<small className="text-red-500">Please Enter Temperature</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Humidity" className="block text-sm font-medium text-gray-700">
                                                 Humidity
                                             </label>
@@ -190,12 +210,12 @@ export default function Example() {
                                                 name="Humidity"
                                                 id="Humidity"
                                                 autoComplete="Humidity"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("humidity", e.target.value )}
                                             />
                                             {errorMessage.humidity?<small className="text-red-500">Please Enter Humidity</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="PH" className="block text-sm font-medium text-gray-700">
                                                 PH
                                             </label>
@@ -205,12 +225,12 @@ export default function Example() {
                                                 name="PH"
                                                 id="PH"
                                                 autoComplete="PH"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("ph", e.target.value)}
                                             />
                                             {errorMessage.ph?<small className="text-red-500">Please Enter PH</small>:''}
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-8 md:col-span-12">
                                             <label htmlFor="Rainfall" className="block text-sm font-medium text-gray-700">
                                                 Rainfall
                                             </label>
@@ -220,7 +240,7 @@ export default function Example() {
                                                 name="Rainfall"
                                                 id="Rainfall"
                                                 autoComplete="Rainfall"
-                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                className="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm text-sm border-gray-300 rounded-md"
                                                 onChange={(e) => changeHandler("rainfall", e.target.value )}
                                             />
                                             {errorMessage.rainfall?<small className="text-red-500">Please Enter Rainfall</small>:''}
@@ -230,7 +250,7 @@ export default function Example() {
                                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                                     <button
                                         type="submit"
-                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                                        className="inline-flex justify-center w-full mb-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                     >
                                         Submit
                                     </button>
