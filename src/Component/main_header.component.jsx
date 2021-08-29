@@ -15,9 +15,10 @@ class MainHeader extends React.Component {
                     <div className="w-3/5 flex flex-col my-auto">
                         <span className="text-gray-900 sm:text-gray-800 font-sans text-4xl sm:text-7xl font-bold text-center sm:leading-normal sm:p-6 pb-4">The Go-To Destination For Farmers.</span>
                         <span className="text-gray-600 sm:text-gray-500 text-center text-xl py-10">Agri Cultivate is the one-stop destination for all the latest information about crops, environment, and farming techniques. You can find information about latest research in various fields of agriculture and other related topics like soil management, plant diseases, animal husbandry and agronomy.</span>
-                        <div className="text-center">
-                            <button className="py-4 mx-2 bg-green-400 hover:bg-green-500 text-white font-bold w-40 rounded-full m-auto shadow-lg my-6">Get Started</button>
-                            <button className="py-4 bg-green-400 hover:bg-green-500 text-white font-bold w-40 rounded-full m-auto shadow-lg my-6">Get Started</button>
+                        <div className="flex justify-center animate-bounce ">
+                        <a href="#arrow"><svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 9l-7 7-7-7" />
+                        </svg></a>
                         </div>
                     </div>
                 </div>

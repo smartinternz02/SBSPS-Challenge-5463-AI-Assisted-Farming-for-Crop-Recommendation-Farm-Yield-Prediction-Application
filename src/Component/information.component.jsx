@@ -3,7 +3,7 @@ import cowlogo from '../assets/images/cow.webp'
 class Information extends React.Component{
     render(){
         return(
-            <div className="w-full py-8">
+            <div id="arrow1" className="w-full py-8">
                 <div className="text-4xl md:text-5xl w-full text-center font-bold">Take control of your farm</div>
                 <div className="flex flex-wrap">
                     <div className="relative w-full md:w-1/2 flex p-12 justify-center items-center">

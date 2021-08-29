@@ -1,5 +1,9 @@
 import React from "react";
 import axios from "axios";
+import airlogo from "../assets/images/air.png";
+import soillogo from "../assets/images/soil.png";
+import cloudy from "../assets/images/cloudy.png";
+import pollen from "../assets/images/pollen.png";
 class MainContent extends React.Component {
   constructor(props) {
     super(props);
@@ -7,7 +11,7 @@ class MainContent extends React.Component {
       lat: 0,
       lng: 0,
       air: {
-        message: "success",
+        message: "",
         stations: [
           {
             CO: 1.453,
@@ -46,7 +50,7 @@ class MainContent extends React.Component {
         ],
       },
       fire: {
-        message: "Success",
+        message: "",
         data: [
           {
             lat: -8.995439999999999,
@@ -60,7 +64,7 @@ class MainContent extends React.Component {
         ],
       },
       weather: {
-        message: "success",
+        message: "",
         data: {
           time: 1602153684,
           temperature: 81.87,
@@ -81,7 +85,7 @@ class MainContent extends React.Component {
         },
       },
       weather_forecast: {
-        message: "success",
+        message: "",
         data: {
           lat: "22",
           lng: "112",
@@ -110,7 +114,7 @@ class MainContent extends React.Component {
         },
       },
       pollen: {
-        message: "success",
+        message: "",
         data: [
           {
             Count: {
@@ -126,16 +130,16 @@ class MainContent extends React.Component {
           },
         ],
       },
-      water_vapor:	{
-        "message": "Nearest places",
-        "data": [
+      water_vapor: {
+        message: "Nearest places",
+        data: [
           {
-            "_id": "5efa5b0bd5b6cf2333bc7a8c",
-            "createdAt": "2020-06-29 19:20:00.000Z",
-            "water_vapor": 5.613
-          }
-        ]
-      }
+            _id: "5efa5b0bd5b6cf2333bc7a8c",
+            createdAt: "2020-06-29 19:20:00.000Z",
+            water_vapor: 5.613,
+          },
+        ],
+      },
     };
   }
 
@@ -153,15 +157,18 @@ class MainContent extends React.Component {
       },
     };
     console.log(options);
-    if(lat && lng){
-      axios.request(options).then((response)=>{
-        this.setState({"air": response.data})
-        console.log(response.data);
-      }).catch(function(error){
-        console.log(error);
-      })
-    } else{
-      console.log('cannot get location');
+    if (lat && lng) {
+      axios
+        .request(options)
+        .then((response) => {
+          this.setState({ air: response.data });
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      console.log("cannot get location");
     }
   }
 
@@ -180,15 +187,15 @@ class MainContent extends React.Component {
     };
     axios
       .request(options)
-      .then((response) =>{
-        this.setState({soil:response.data})
+      .then((response) => {
+        this.setState({ soil: response.data });
         console.log(response.data);
       })
-      .catch((error)=> {
+      .catch((error) => {
         console.error(error);
       });
   }
-  weather(){
+  weather() {
     var lat = this.state.lat;
     var lng = this.state.lng;
     var options = {
@@ -201,14 +208,17 @@ class MainContent extends React.Component {
         "Content-type": "application/json",
       },
     };
-    axios.request(options).then((response) =>{
-      this.setState({weather:response.data});
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ weather: response.data });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
-  weather_forecast(){
+  weather_forecast() {
     var lat = this.state.lat;
     var lng = this.state.lng;
     var options = {
@@ -221,14 +231,17 @@ class MainContent extends React.Component {
         "Content-type": "application/json",
       },
     };
-    axios.request(options).then((response) =>{
-      this.setState({weather_forecast:response.data});
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ weather_forecast: response.data });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
-  pollen(){
+  pollen() {
     var lat = this.state.lat;
     var lng = this.state.lng;
     var options = {
@@ -241,14 +254,17 @@ class MainContent extends React.Component {
         "Content-type": "application/json",
       },
     };
-    axios.request(options).then((response) =>{
-      this.setState({pollen:response.data});
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ pollen: response.data });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
-  water_vapor(){
+  water_vapor() {
     var lat = this.state.lat;
     var lng = this.state.lng;
     var options = {
@@ -261,15 +277,18 @@ class MainContent extends React.Component {
         "Content-type": "application/json",
       },
     };
-    axios.request(options).then((response) =>{
-      this.setState({water_vapor:response.data});
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ water_vapor: response.data });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
-  fire(){
+  fire() {
     var lat = this.state.lat;
     var lng = this.state.lng;
     var options = {
@@ -282,12 +301,15 @@ class MainContent extends React.Component {
         "Content-type": "application/json",
       },
     };
-    axios.request(options).then((response) =>{
-      this.setState({fire:response.data});
-      console.log(response.data);
-    }).catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then((response) => {
+        this.setState({ fire: response.data });
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
   componentDidMount() {
@@ -307,185 +329,213 @@ class MainContent extends React.Component {
 
     console.log(this.state.air);
   }
-
+ 
   render() {
-    return (
-      <div className="h-full w-full">
-        <div className="flex flex-col py-20 px-16">
-          <div className="text-black text-3xl font-semibold py-2">
-            {this.state.air.stations[0].state}
-          </div>
-          <div className="text-black text-5xl font-extrabold">
-            {this.state.air.stations[0].division}
-          </div>
-          {/* cards */}
-          <div class="flex items-center justify-center pt-16">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
-              <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-2xl">
-                <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-2xl bg-pink-500 left-4 -top-6"></div>
-                <div class="mt-8">
-                  <p class="text-xl font-semibold my-2">Air Quality</p>
-                  <div class="flex space-x-2 text-gray-500 text-sm">
-                    <p className="text-gray-700">CO :</p>
-                    <p>{this.state.air.stations[0].CO}</p>
+    const isDisplay = this.state.lat && this.state.lng;
+    if (isDisplay){
+      return (
+        <div className="h-full w-full">
+          <div className="flex flex-col py-20 px-16">
+            <div id="arrow" className="text-black text-3xl font-semibold py-2">
+              {this.state.air.stations[0].state}
+            </div>
+            <div  className="text-black text-5xl font-extrabold">
+              {this.state.air.stations[0].division}
+            </div>
+            {/* cards */}
+            <div class="flex items-center justify-center pt-16">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4">
+                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl hover:shadow-2xl">
+                  <div class=" text-white flex items-center absolute rounded-full shadow-2xl bg-pink-500 left-4 -top-6">
+                    <img className="h-14" src={airlogo} alt="" srcset="" />
                   </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-2">
-                    <p className="text-gray-700">NO2 :</p>
-                    <p>{this.state.air.stations[0].NO2}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-2">
-                    <p className="text-gray-700">OZONE :</p>
-                    <p>{this.state.air.stations[0].OZONE}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-2">
-                    <p className="text-gray-700">PM10 :</p>
-                    <p>{this.state.air.stations[0].PM10}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-2">
-                    <p className="text-gray-700">PM25 :</p>
-                    <p>{this.state.air.stations[0].PM25}</p>
-                  </div>
-                  <div class="border-t-2"></div>
-
-                  <div class="flex justify-between">
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">
-                        {this.state.air.stations[0].aqiInfo.category}
-                      </p>
-                      <div class="flex space-x-2">
-                        <p>{this.state.air.stations[0].aqiInfo.pollutant}</p>
-                        <p>
-                          {this.state.air.stations[0].aqiInfo.concentration}
+                  <div class="mt-8">
+                    <p class="text-xl font-semibold my-2">Air Quality</p>
+                    <div class="flex space-x-2 text-gray-500 text-sm">
+                      <p className="text-gray-700">CO :</p>
+                      <p>{this.state.air.stations[0].CO}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-2">
+                      <p className="text-gray-700">NO2 :</p>
+                      <p>{this.state.air.stations[0].NO2}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-2">
+                      <p className="text-gray-700">OZONE :</p>
+                      <p>{this.state.air.stations[0].OZONE}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-2">
+                      <p className="text-gray-700">PM10 :</p>
+                      <p>{this.state.air.stations[0].PM10}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-2">
+                      <p className="text-gray-700">PM25 :</p>
+                      <p>{this.state.air.stations[0].PM25}</p>
+                    </div>
+                    <div class="border-t-2"></div>
+  
+                    <div class="flex justify-between">
+                      <div class="my-2">
+                        <p class="font-semibold text-base mb-2">
+                          {this.state.air.stations[0].aqiInfo.category}
                         </p>
+                        <div class="flex space-x-2">
+                          <p>{this.state.air.stations[0].aqiInfo.pollutant}</p>
+                          <p>
+                            {this.state.air.stations[0].aqiInfo.concentration}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">AQI</p>
-                      <div class="text-base text-gray-500 font-semibold">
-                        <p>{this.state.air.stations[0].AQI}</p>
+                      <div class="my-2">
+                        <p class="font-semibold text-base mb-2">AQI</p>
+                        <div class="text-base text-gray-500 font-semibold">
+                          <p>{this.state.air.stations[0].AQI}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-yellow-700 left-4 -top-6"></div>
-                <div class="mt-8">
-                  <p class="text-xl font-semibold my-2">Soil</p>
-                  <div class="flex space-x-2 text-gray-500 text-sm">
-                    <p className="text-gray-700">Soil Temperature :</p>
-                    <p>
-                      {this.state.soil.data[0].soil_temperature.toFixed(2)} ℃
-                    </p>
+  
+                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl hover:shadow-2xl">
+                  <div class=" text-white flex items-center absolute rounded-full shadow-xl py-4 px-4 bg-yellow-200 left-4 -top-6">
+                    <img className="h-8" src={soillogo} alt="" srcset="" />
                   </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Soil Moisutre :</p>
-                    <p>{this.state.soil.data[0].soil_moisture.toFixed(2)} %</p>
-                  </div>
-                  <div class="border-t-2"></div>
-
-                  <div class="flex flex-col justify-between">
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">
-                        Fire Information
+                  <div class="mt-8">
+                    <p class="text-xl font-semibold my-2">Soil</p>
+                    <div class="flex space-x-2 text-gray-500 text-sm">
+                      <p className="text-gray-700">Soil Temperature :</p>
+                      <p>
+                        {this.state.soil.data[0].soil_temperature.toFixed(2)} ℃
                       </p>
-                      <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                        <p className="text-gray-700">Confidence :</p>
-                        <p>{this.state.fire.data[0].confidence}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Soil Moisutre :</p>
+                      <p>{this.state.soil.data[0].soil_moisture.toFixed(2)} %</p>
+                    </div>
+                    <div class="border-t-2"></div>
+                    {this.state.fire.message === "success" ? (
+                      <div class="flex flex-col justify-between">
+                        <div class="my-2">
+                          <p class="font-semibold text-base mb-2">
+                            Fire Information
+                          </p>
+                          <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                            <p className="text-gray-700">Confidence :</p>
+                            <p>{this.state.fire.data[0].confidence}</p>
+                          </div>
+                          <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                            <p className="text-gray-700">Distance :</p>
+                            <p>
+                              {this.state.fire.data[0].distance.toFixed(2)} KM
+                            </p>
+                          </div>
+                          <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                            <p className="text-gray-700">Fire Radioactive :</p>
+                            <p>{this.state.fire.data[0].frp} MW</p>
+                          </div>
+                        </div>
                       </div>
-                      <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                        <p className="text-gray-700">Distance :</p>
-                        <p>{this.state.fire.data[0].distance.toFixed(2)} KM</p>
-                      </div>
-                      <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                        <p className="text-gray-700">Fire Radioactive :</p>
-                        <p>{this.state.fire.data[0].frp} MW</p>
+                    ) : (
+                      <div>{this.state.fire.message}</div>
+                    )}
+                  </div>
+                </div>
+  
+                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl hover:shadow-2xl">
+                  <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-red-300 left-4 -top-6">
+                    <img className="h-8" src={cloudy} alt="" srcset="" />
+                  </div>
+                  <div class="mt-8">
+                    <p class="text-xl font-semibold my-2">Weather</p>
+                    <div class="flex space-x-2 text-gray-500 text-sm">
+                      <p className="text-gray-700">Temperature :</p>
+                      <p>{this.state.weather.data.temperature}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Humidity :</p>
+                      <p>{this.state.weather.data.humidity}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Wind Speed :</p>
+                      <p>{this.state.weather.data.windSpeed}</p>
+                    </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Visiblity :</p>
+                      <p>{this.state.weather.data.visibility}</p>
+                    </div>
+                    <div class="border-t-2"></div>
+  
+                    <div class="flex flex-col justify-between">
+                      <div class="my-2">
+                        <div class="flex space-x-2 text-gray-500 font-bold text-sm py-2">
+                          <p className="text-gray-700">Forecast</p>
+                          <p className="font-semibold">
+                            {this.state.weather_forecast.data.forecast[0].summary}
+                          </p>
+                        </div>
+                        <div class="flex space-x-2 text-gray-500 text-sm py-2">
+                          <p className="text-gray-700">Temperature :</p>
+                          <p>
+                            {
+                              this.state.weather_forecast.data.forecast[0]
+                                .temperature
+                            }
+                          </p>
+                        </div>
+                        <div class="flex space-x-2 text-gray-500 text-sm py-2">
+                          <p className="text-gray-700">Humidity :</p>
+                          <p>
+                            {
+                              this.state.weather_forecast.data.forecast[0]
+                                .humidity
+                            }
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6"></div>
-                <div class="mt-8">
-                  <p class="text-xl font-semibold my-2">Weather</p>
-                  <div class="flex space-x-2 text-gray-500 text-sm">
-                    <p className="text-gray-700">Temperature :</p>
-                    <p>{this.state.weather.data.temperature}</p>
+  
+                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl hover:shadow-2xl">
+                  <div class=" text-white flex items-center absolute rounded-full  shadow-xl bg-red-300 left-4 -top-6">
+                    <img className="h-14" src={pollen} alt="" srcset="" />
                   </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Humidity :</p>
-                    <p>{this.state.weather.data.humidity}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Wind Speed :</p>
-                    <p>{this.state.weather.data.windSpeed}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Visiblity :</p>
-                    <p>{this.state.weather.data.visibility}</p>
-                  </div>
-                  <div class="border-t-2"></div>
-
-                  <div class="flex justify-between">
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">Forecast</p>
-                      <div class="flex flex-col ">
-                        <p>Temperature</p>
-                        <p>Humidity</p>
-                      </div>
+                  <div class="mt-8">
+                    <p class="text-xl font-semibold my-2">Water Vapor & Pollen</p>
+                    <div class="flex space-x-2 text-gray-500 text-sm">
+                      <p className="text-gray-700">Water Vapor :</p>
+                      <p>{this.state.water_vapor.data[0].water_vapor}</p>
                     </div>
-                    <div class="my-2 flex flex-col text-right">
-                      <span class="font-semibold text-sm mb-2 overflow-hidden whitespace-nowrap overflow-clip">{this.state.weather_forecast.data.forecast[0].summary}</span>
-                      <div class="text-base text-gray-500 font-semibold py-2">
-                        <p>{this.state.weather_forecast.data.forecast[0].temperature}</p>
-                        <p>{this.state.weather_forecast.data.forecast[0].humidity}</p>
-                      </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Grass Pollen :</p>
+                      <p>{this.state.pollen.data[0].Count.grass_pollen}</p>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-red-300 left-4 -top-6"></div>
-                <div class="mt-8">
-                  <p class="text-xl font-semibold my-2">Water Vapor & Pollen</p>
-                  <div class="flex space-x-2 text-gray-500 text-sm">
-                    <p className="text-gray-700">Water Vapor :</p>
-                    <p>{this.state.water_vapor.data[0].water_vapor}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Grass Pollen :</p>
-                    <p>{this.state.pollen.data[0].Count.grass_pollen}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Tree Pollen :</p>
-                    <p>{this.state.pollen.data[0].Count.tree_pollen}</p>
-                  </div>
-                  <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                    <p className="text-gray-700">Weed Pollen :</p>
-                    <p>{this.state.pollen.data[0].Count.weed_pollen}</p>
-                  </div>
-
-                  <div class="border-t-2"></div>
-
-                  <div class="flex justify-between">
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">Type</p>
-                      <div class="flex flex-col">
-                        <p>Grass Pollen</p>
-                        <p>Tree Pollen</p>
-                        <p>Weed Pollen</p>
-                      </div>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Tree Pollen :</p>
+                      <p>{this.state.pollen.data[0].Count.tree_pollen}</p>
                     </div>
-                    <div class="my-2">
-                      <p class="font-semibold text-base mb-2">Risk</p>
-                      <div class="text-base text-gray-500 font-semibold">
-                        <p>{this.state.pollen.data[0].Risk.grass_pollen}</p>
-                        <p>{this.state.pollen.data[0].Risk.tree_pollen}</p>
-                        <p>{this.state.pollen.data[0].Risk.weed_pollen}</p>
+                    <div class="flex space-x-2 text-gray-500 text-sm my-3">
+                      <p className="text-gray-700">Weed Pollen :</p>
+                      <p>{this.state.pollen.data[0].Count.weed_pollen}</p>
+                    </div>
+  
+                    <div class="border-t-2"></div>
+  
+                    <div class="flex justify-between">
+                      <div class="my-2">
+                        <p class="font-semibold text-base mb-2">Type</p>
+                        <div class="flex flex-col">
+                          <p>Grass Pollen</p>
+                          <p>Tree Pollen</p>
+                          <p>Weed Pollen</p>
+                        </div>
+                      </div>
+                      <div class="my-2">
+                        <p class="font-semibold text-base mb-2">Risk</p>
+                        <div class="text-base text-gray-500 font-semibold">
+                          <p>{this.state.pollen.data[0].Risk.grass_pollen}</p>
+                          <p>{this.state.pollen.data[0].Risk.tree_pollen}</p>
+                          <p>{this.state.pollen.data[0].Risk.weed_pollen}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -494,8 +544,12 @@ class MainContent extends React.Component {
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }else{
+      return(
+        <div id="arrow"></div>
+      )
+    }
   }
 }
 export default MainContent;
