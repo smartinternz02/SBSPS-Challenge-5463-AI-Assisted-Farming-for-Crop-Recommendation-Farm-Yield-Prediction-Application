@@ -144,7 +144,7 @@ export default function Example() {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("modal")}></img>
                             </div>
                             <div className="overflow-y-auto">
-                                <Card cardId={returnData!==''?parseInt(returnData):0}/>
+                                <Card cardId={returnData!==''?parseInt(returnData)-1:0}/>
                             </div>
                         </div>
                     </div>
