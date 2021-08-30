@@ -25,11 +25,7 @@ class MainHeader extends React.Component {
               The Go-To Destination For Farmers.
             </span>
             <span className="text-gray-600 sm:text-gray-500 text-center text-xl py-10">
-              Agri Cultivate is the one-stop destination for all the latest
-              information about crops, environment, and farming techniques. You
-              can find information about latest research in various fields of
-              agriculture and other related topics like soil management, plant
-              diseases, animal husbandry and agronomy.
+            Agri Cultivate AI is the tool to help them do that through accurate and timely recommendations which helps them increase their yield and keep up with the changing climate!
             </span>
           </div>
         </div>
