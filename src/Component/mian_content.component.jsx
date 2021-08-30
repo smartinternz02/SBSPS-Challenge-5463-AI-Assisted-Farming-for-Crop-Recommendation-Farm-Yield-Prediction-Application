@@ -408,7 +408,7 @@ class MainContent extends React.Component {
                       </p>
                     </div>
                     <div class="flex space-x-2 text-gray-500 text-sm my-3">
-                      <p className="text-gray-700">Soil Moisutre :</p>
+                      <p className="text-gray-700">Soil Moisture :</p>
                       <p>{this.state.soil.data[0].soil_moisture.toFixed(2)} %</p>
                     </div>
                     <div class="border-t-2"></div>
