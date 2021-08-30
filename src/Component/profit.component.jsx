@@ -12,6 +12,7 @@ export default function Example() {
     const [val, setVal] = React.useState({ "state": null, "crop": null, "sp": null, "cc2": null, "cp2": null })
     const [errorMessage, setErrorMessage] = React.useState({ "state": false, "crop": false, "sp": false, "cc2": false, "cp2": false })
     const [returnData, setReturnData] = React.useState('')
+    const [loading, setLoading] = React.useState(false)
 
     async function getToken() {
         try {
@@ -38,8 +39,13 @@ export default function Example() {
     }
 
     React.useEffect(()=>{
-        if(returnData!=='')
+        if(returnData!==''){
+            document.getElementById('profitForm').reset()
+            document.getElementById('state').getElementsByTagName('option')[0].selected = "selected";
+            document.getElementById('crop').getElementsByTagName('option')[0].selected = "selected";
             openModal('profitmodal')
+            setLoading(false)
+        }
     },[returnData])
 
     React.useEffect(()=>{
@@ -76,7 +82,7 @@ export default function Example() {
             }
         }
         if(!isError){
-
+            setLoading(true)
             let pd = {
                 "input_data": [{
                     "fields": ["State", "Crop", "Support price", "CC2", "CP2"],
@@ -136,7 +142,7 @@ export default function Example() {
                                 <h1 className="font-semibold text-base">Profit/Loss</h1>
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Multiplication_Sign.svg/1024px-Multiplication_Sign.svg.png" alt="Close" className="w-5 ml-auto cursor-pointer" onClick={()=>modalClose("profitmodal")}></img>
                             </div>
-                            {returnData!='' && returnData===1?
+                            {returnData!=='' && returnData===1?
                            <div className="overflow-y-auto mt-4 mb-8">
                                 <h1 className="text-2xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center">CONGRATULATIONS!<br/></h1>
                                 <h1 className="text-xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center mt-4"><span className="text-black font-semibold">As per our Machine Learning Model, the Crop Data you entered can earn you a </span>Profit!</h1>
@@ -162,7 +168,7 @@ export default function Example() {
                 <div className="md:grid md:gap-6">
                     <h1 className="text-3xl sm:text-4xl bg-clip-text text-transparent font-bold bg-gradient-to-r from-green-800 to-green-500 text-center lg:ml-12 mt-8">PROFIT/LOSS</h1>
                     <div className="my-5 mb-16 lg:ml-12 shadow-xl">
-                        <form onSubmit={handleSubmit}>
+                        <form id="profitForm" onSubmit={handleSubmit}>
                             <div className="shadow overflow-hidden sm:rounded-md">
                                 <div className="px-4 py-5 bg-white sm:p-6">
                                     <div className="grid gap-y-10 md:gap-10">
@@ -272,6 +278,10 @@ export default function Example() {
                                         className="inline-flex justify-center w-full mb-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                     >
                                         Submit
+                                        {loading?<svg class="animate-spin ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>:''}
                                     </button>
                                 </div>
                             </div>
