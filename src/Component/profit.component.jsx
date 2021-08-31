@@ -43,6 +43,7 @@ export default function Example() {
             document.getElementById('profitForm').reset()
             document.getElementById('state').getElementsByTagName('option')[0].selected = "selected";
             document.getElementById('crop').getElementsByTagName('option')[0].selected = "selected";
+            setVal({ "state": null, "crop": null, "sp": null, "cc2": null, "cp2": null })
             openModal('profitmodal')
             setLoading(false)
         }

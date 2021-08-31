@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+<h1 align="center">Agri-Cultivate 🌾</h1>
+<p align="center">
+    <a href="https://agri-cultivate.vercel.app/">View Website</a> | <a href="https://youtu.be/XmeU1cPr8wU">View Video</a>
+</p>
+<p align="center"><a href="http://agri-cultivate.vercel.app/"><img src="./src/assets/images/homepage.png" width="700"></a></p>
+<p align="center">Agri Cultivate AI is a tool that recommends the farmers about crops to be cultivated and predicts whether the cultivation method will generate profit or loss.
+</p>
+<br>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Technologies Used
 
-## Available Scripts
+<img src="./src/assets/images/React.svg" alt="React">
+<img src="./src/assets/images/Tailwind CSS.svg" alt="Tailwind CSS">
+<img src="./src/assets/images/IBM Watson.svg" alt="IBM Watson">
+<img src="./src/assets/images/Vercel.svg" alt="Vercel">
+<img src="./src/assets/images/Python.svg" alt="Python">
+<img src="./src/assets/images/Numpy.svg" alt="Numpy">
+<img src="./src/assets/images/Pandas.svg" alt="Pandas">
+<img src="./src/assets/images/Scikit Learn.svg" alt="Scikit Learn">
 
-In the project directory, you can run:
+## Features
+The Machine Learning models are created by setting up a deployment space on IBM Watson Studio where we created an asset for the jupyter notebook on which we shipped our code to create an API Endpoint so that the desired output can be presented on our website.
 
-### `yarn start`
+* [Crop Recommendation](#crop-recommendation)
+* [Yield Profit](#yield-profit)
+* [ChatBot](#chatbot)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Crop Recommendation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+As far as which crop to grow is concerned, multiple parameters such as amount of nitrogen, phosphorus, potassium, the average temperature of the soil, humidity, average pH value and annual rainfall into consideration. <br>This model is able to predict among 22 major crop species which are grown in India. Random Forest Classifier algorithm has been implemented giving an accuracy of 97%.
 
-### `yarn test`
+## Yield Profit
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For the prediction of the profit from the crop yield, we have taken the parameters crop, state, cost of cultivation per hectare, cost of production, yield (quintal/hectare) and support price. <br>Used Logistic Regression for predicting if the farmer will be profited or suffer a loss. Achieved an accuracy of 95% on test data.
 
-### `yarn build`
+## ChatBot
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The ChatBot is created using the IBM Watson assistant platform. Using it, a user can communicate with the bot and ask queries such as "What are the top five crops in Punjab?"<br> The bot also assists users with problems such as crop recommendation and yield profit, among other things.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Team Members
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<a href="https://github.com/kanavmittal/">Kanav Mittal</a><br>
+<a href="https://github.com/samankgupta/">Samank Gupta</a><br>
+<a href="https://github.com/sarthak91-debug/">Sarthak Tyagi</a><br>
+<a href="https://github.com/karmabir/">Karmabir Chakraborty
+</a><br>

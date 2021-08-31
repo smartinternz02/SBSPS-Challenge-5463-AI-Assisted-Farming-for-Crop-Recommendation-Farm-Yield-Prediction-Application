@@ -41,6 +41,7 @@ export default function Example() {
     React.useEffect(()=>{
         if(returnData!==''){
             document.getElementById('recommendationForm').reset()
+            setVal({ "N": null, "P": null, "K": null, "temperature": null, "humidity": null, "ph": null, "rainfall": null })
             openModal('modal')
             setLoading(false)
         }
