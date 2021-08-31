@@ -1,8 +1,8 @@
-import React from 'react';
-import Navbar from './Navbar.component';
-import leaves from "../assets/images/plant.png"
-import leaves2 from "../assets/images/plant2.png"
-import './leaves.css'
+import React from "react";
+import Navbar from "./Navbar.component";
+import leaves from "../assets/images/plant.png";
+import leaves2 from "../assets/images/plant2.png";
+import "./leaves.css";
 
 class MainHeader extends React.Component {
     render() {
@@ -26,4 +26,4 @@ class MainHeader extends React.Component {
         )
     }
 }
-export default MainHeader
+export default MainHeader;
