@@ -9,7 +9,7 @@
 
 ## Technologies Used
 
-<img src="./src/assets/images/React.svg" alt="React"><img src="./src/assets/images/Tailwind CSS.svg" alt="Tailwind CSS"><img src="./src/assets/images/IBM Watson.svg" alt="IBM Watson"><img src="./src/assets/images/Vercel.svg" alt="Vercel">
+<img src="./src/assets/images/React.svg" alt="React"><img src="./src/assets/images/Tailwind CSS.svg" alt="Tailwind CSS"><img src="./src/assets/images/IBM Watson.svg" alt="IBM Watson"><img src="./src/assets/images/Vercel.svg" alt="Vercel"><br>
 <img src="./src/assets/images/Python.svg" alt="Python"><img src="./src/assets/images/Numpy.svg" alt="Numpy"><img src="./src/assets/images/Pandas.svg" alt="Pandas"><img src="./src/assets/images/Scikit Learn.svg" alt="Scikit Learn">
 
 ## Features
