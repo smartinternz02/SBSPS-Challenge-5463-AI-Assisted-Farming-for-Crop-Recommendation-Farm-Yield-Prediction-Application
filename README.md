@@ -2,21 +2,15 @@
 <p align="center">
     <a href="https://agri-cultivate.vercel.app/">View Website</a> | <a href="https://youtu.be/XmeU1cPr8wU">View Video</a>
 </p>
-<p align="center"><a href="http://agri-cultivate.vercel.app/"><img src="./src/assets/images/homepage.png" width="700"></a></p>
+<p align="center"><a href="http://agri-cultivate.vercel.app/"><img src="./src/assets/images/homepage.PNG" width="700"></a></p>
 <p align="center">Agri Cultivate AI is a tool that recommends the farmers about crops to be cultivated and predicts whether the cultivation method will generate profit or loss.
 </p>
 <br>
 
 ## Technologies Used
 
-<img src="./src/assets/images/React.svg" alt="React">
-<img src="./src/assets/images/Tailwind CSS.svg" alt="Tailwind CSS">
-<img src="./src/assets/images/IBM Watson.svg" alt="IBM Watson">
-<img src="./src/assets/images/Vercel.svg" alt="Vercel">
-<img src="./src/assets/images/Python.svg" alt="Python">
-<img src="./src/assets/images/Numpy.svg" alt="Numpy">
-<img src="./src/assets/images/Pandas.svg" alt="Pandas">
-<img src="./src/assets/images/Scikit Learn.svg" alt="Scikit Learn">
+<img src="./src/assets/images/React.svg" alt="React"><img src="./src/assets/images/Tailwind CSS.svg" alt="Tailwind CSS"><img src="./src/assets/images/IBM Watson.svg" alt="IBM Watson"><img src="./src/assets/images/Vercel.svg" alt="Vercel">
+<img src="./src/assets/images/Python.svg" alt="Python"><img src="./src/assets/images/Numpy.svg" alt="Numpy"><img src="./src/assets/images/Pandas.svg" alt="Pandas"><img src="./src/assets/images/Scikit Learn.svg" alt="Scikit Learn">
 
 ## Features
 The Machine Learning models are created by setting up a deployment space on IBM Watson Studio where we created an asset for the jupyter notebook on which we shipped our code to create an API Endpoint so that the desired output can be presented on our website.
